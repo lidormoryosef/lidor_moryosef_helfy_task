@@ -8,7 +8,7 @@ A full-stack card management application that allows users to add, edit.
 ## 🌐 Live Website
 
 Access the deployed version here:  
-🔗 [https://tasks.com](http://51.21.180.66:5000/)
+🔗 [https://tasks.com](http://13.60.21.25:5000/)
 
 ---
 
