@@ -11,14 +11,14 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
     if(!task){
       createCard(taskData);
     }else{
-      updateTask(taskData);
+      updateTask(taskData,task.id);
     }
   };
 
   if (!isOpen) return null;
   const createCard = async(taskData) =>{
         try {
-          const response = await fetch("http://localhost:5000/api/tasks", {
+          const response = await fetch("/api/tasks", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(taskData),
@@ -38,9 +38,9 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
       console.error(err);
     }
   }
-  const updateTask = async(taskData) =>{
+  const updateTask = async(taskData,id) =>{
         try {
-        const response = await fetch(`http://localhost:5000/api/tasks/${task.id}`, {
+        const response = await fetch(`/api/tasks/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(taskData),
