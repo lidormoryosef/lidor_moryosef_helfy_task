@@ -8,7 +8,7 @@ export default function TaskList({tasks, setTasks,setIsModalOpen,setTask }){
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch(`5000/api/tasks`, {
+        const response = await fetch(`/api/tasks`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
