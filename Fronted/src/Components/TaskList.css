@@ -1,0 +1,36 @@
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.carousel {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.task-card {
+  flex: 0 0 auto;
+  width: 200px;
+  min-width: 200px;
+  margin-right: 10px;
+  
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+.completed{
+    background-color: #0ddc36;
+}
+.notcompleted{
+    background-color: #c80c0c;
+}
+
+.task-card:hover {
+  transform: scale(1.05);
+}
