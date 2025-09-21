@@ -42,7 +42,7 @@ function toggleTask(request,response){
     const toggled = service.toggleTask(request.params.id);
     if(toggled === null){
         response.status(400).send();
-    }else if (deleted){
+    }else if(toggled){
         response.status(200).send();
     }else{
         response.status(404).send();

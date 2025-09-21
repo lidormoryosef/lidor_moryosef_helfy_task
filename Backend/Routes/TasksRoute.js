@@ -39,8 +39,8 @@ const router=express.Router();
  *     responses:
  *       200:
  *         description: successfully.
- *       500:
- *         description: Server error.
+ *       400:
+ *         description: Bad request.
  */
 
 router.route('/').post(controller.addTask);
