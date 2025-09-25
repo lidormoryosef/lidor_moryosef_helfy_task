@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TaskModal.css";
 
-export default function TaskModal({ task,isOpen, onClose, onCreate }) {
-  const [title, setTitle] = useState(task ? task.title : "");
-  const [description, setDescription] = useState(task ? task.description : "");
-  const [priority, setPriority] = useState(task ? task.priority : "low");
+export default function TaskModal({task,isOpen, onClose, onUpdate }) {
+  const [title, setTitle] = useState(task !== null ? task.title : "");
+  const [description, setDescription] = useState(task !== null ? task.description : "");
+  const [priority, setPriority] = useState(task !== null ? task.priority : "low");
+  useEffect(()=>{
+    setTitle(task !== null ? task.title : "");
+    setDescription(task !== null ? task.description : "");
+    setPriority(task !== null ? task.priority : "low");
+  },[task])
   const handleSubmit = async (e) => {
     e.preventDefault();
     const taskData = { title, description, priority, completed: false };
-    if(!task){
+    if(task === null){
       createCard(taskData);
     }else{
       updateTask(taskData,task.id);
     }
+    setTitle("");
+    setDescription("");
+    setPriority("low");
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -29,11 +38,7 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
       }
 
       const createdTask = await response.json();
-      onCreate(createdTask);
-      setTitle("");
-      setDescription("");
-      setPriority("low");
-      onClose();
+      onUpdate(createdTask);
     } catch (err) {
       console.error(err);
     }
@@ -41,19 +46,15 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
   const updateTask = async(taskData,id) =>{
         try {
         const response = await fetch(`http://localhost:4000/api/tasks/${id}`, {
-        method: "PATCH",
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(taskData),
       });
 
       if (!response.ok) throw new Error(`Failed to update task: ${response.status}`);
+      taskData["index"] = task["index"];
+      onUpdate(taskData);
 
-      const savedTask = await response.json();
-      onCreate(savedTask);
-      setTitle("");
-      setDescription("");
-      setPriority("low");
-      onClose();
     } catch (err) {
       console.error(err);
     }
@@ -61,7 +62,7 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <h2>Create New Task</h2>
+        <h2>{task === null ? "Create New Task" : "Update Task"}</h2>
         <form onSubmit={handleSubmit}>
           <label>
             Title:

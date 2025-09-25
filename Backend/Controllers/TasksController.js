@@ -22,7 +22,7 @@ function updateTask(request,response){
     const success = service.updateTask(request.params.id, request.body);
     if(success === null){
         response.status(400).send();
-    }else if (deleted){
+    }else if (success){
         response.status(200).send();
     }else{
         response.status(404).send();

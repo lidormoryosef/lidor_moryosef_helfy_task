@@ -9,9 +9,17 @@ export default function TasksPage() {
     const [tasks, setTasks] = useState([]);
     const [task, setTask] = useState(null);
     
-    const handleTask = (newTask) => {
-    setTasks((prev) => [...prev, newTask]);
-  };
+    const createTask = (newTask) => {
+      setTasks((prev) => [...prev, newTask]);
+    };
+    const updateTask = (newTask) => {
+      console.log(newTask);
+      setTasks(prevItems => {
+        const newTasks = [...prevItems];
+        newTasks[newTask["index"]] = newTask;
+        return newTasks;
+  });
+    };
   return (
     <>    
       <div className="tasks-page">
@@ -25,8 +33,8 @@ export default function TasksPage() {
       <TaskModal
       task ={task}
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onCreate={handleTask}
+        onClose={() => {setIsModalOpen(false); setTask(null);}}
+        onUpdate={task === null ? createTask : updateTask}
       />
     </>
   );
