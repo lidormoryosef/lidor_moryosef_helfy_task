@@ -15,7 +15,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:5000',
+        url: 'http://localhost:4000',
       },
     ],
   },
@@ -34,4 +34,4 @@ app.use('/api/tasks', tasksRoute);
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const server=http.createServer(app);
 
-server.listen(5000);
+server.listen(4000);
