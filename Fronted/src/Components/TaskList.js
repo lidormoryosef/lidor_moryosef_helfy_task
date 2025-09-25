@@ -1,4 +1,4 @@
-import React, { useRef, useEffect ,useState} from "react";
+import React, { useRef, useEffect} from "react";
 import "./TaskList.css";
 
 export default function TaskList({tasks, setTasks,setIsModalOpen,setTask }){
@@ -51,7 +51,8 @@ export default function TaskList({tasks, setTasks,setIsModalOpen,setTask }){
 
     return () => cancelAnimationFrame(animationFrame);
   }, [tasks]);
-  const editTask = async(newtask)=>{
+  const editTask = async(newtask,index)=>{
+    newtask["index"] = index;
     setTask(newtask);
     setIsModalOpen(true);
   }
@@ -60,7 +61,7 @@ export default function TaskList({tasks, setTasks,setIsModalOpen,setTask }){
     <div className="carousel-container">
       <div className="carousel" ref={carouselRef}>
         {tasks.map((task, index) => (
-          <div key={index} className={`task-card ${task.completed ? "completed" : "notcompleted"}`} onClick={() => editTask(task)}>
+          <div key={index} className={`task-card ${task.completed ? "completed" : "notcompleted"}`} onClick={() => editTask(task,index)}>
             <h3>{task.title}</h3>
             <p>{task.description}</p>
             <p>Completed: {task.completed ? "Completed" : "Pending"}</p>
