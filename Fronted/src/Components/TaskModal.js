@@ -18,7 +18,7 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
   if (!isOpen) return null;
   const createCard = async(taskData) =>{
         try {
-          const response = await fetch("/api/tasks", {
+          const response = await fetch("http://localhost:5000/api/tasks", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(taskData),
@@ -40,7 +40,7 @@ export default function TaskModal({ task,isOpen, onClose, onCreate }) {
   }
   const updateTask = async(taskData,id) =>{
         try {
-        const response = await fetch(`/api/tasks/${id}`, {
+        const response = await fetch(`http://localhost:5000/api/tasks/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(taskData),
